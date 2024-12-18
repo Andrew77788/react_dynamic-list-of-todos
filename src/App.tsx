@@ -20,7 +20,7 @@ export const App: React.FC = () => {
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [loadingModal, setLoadingModal] = useState(false);
+  const [loadingModal, setLoadingModal] = useState(true);
 
   const [modal, setModal] = useState(false);
 
@@ -43,22 +43,22 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     setLoading(true);
-    let updatedToods = [...todos];
+    let updatedTodos = [...todos];
 
     if (filter === 'active') {
-      updatedToods = updatedToods.filter(event => !event.completed);
+      updatedTodos = updatedTodos.filter(event => !event.completed);
     } else if (filter === 'completed') {
-      updatedToods = updatedToods.filter(event => event.completed);
+      updatedTodos = updatedTodos.filter(event => event.completed);
     }
 
     if (searchFilter) {
-      updatedToods = updatedToods.filter(todo =>
+      updatedTodos = updatedTodos.filter(todo =>
         todo.title.toLowerCase().includes(searchFilter.toLowerCase()),
       );
     }
 
     setTimeout(() => {
-      setFilterTodos(updatedToods);
+      setFilterTodos(updatedTodos);
       setLoading(false);
     }, 500);
   }, [filter, searchFilter, todos]);
