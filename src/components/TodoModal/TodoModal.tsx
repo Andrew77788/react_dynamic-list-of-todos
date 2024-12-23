@@ -8,6 +8,7 @@ type Props = {
   selectedTodo: Todo | null;
   user: User | null;
   loadingModal: boolean;
+  setSelectedTodo: (value: Todo | null) => void;
 };
 
 export const TodoModal: React.FC<Props> = ({
@@ -15,9 +16,11 @@ export const TodoModal: React.FC<Props> = ({
   selectedTodo,
   user,
   loadingModal,
+  setSelectedTodo,
 }) => {
   const modalClick = () => {
     setModal(false);
+    setSelectedTodo(null);
   };
 
   return (

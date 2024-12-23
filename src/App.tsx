@@ -24,6 +24,12 @@ export const App: React.FC = () => {
 
   const [modal, setModal] = useState(false);
 
+  enum FilterType {
+    All = 'all',
+    Active = 'active',
+    Completed = 'completed',
+  }
+
   useEffect(() => {
     if (selectedTodo?.userId) {
       setLoadingModal(true);
@@ -45,9 +51,9 @@ export const App: React.FC = () => {
     setLoading(true);
     let updatedTodos = [...todos];
 
-    if (filter === 'active') {
+    if (filter === FilterType.Active) {
       updatedTodos = updatedTodos.filter(event => !event.completed);
-    } else if (filter === 'completed') {
+    } else if (filter === FilterType.Completed) {
       updatedTodos = updatedTodos.filter(event => event.completed);
     }
 
@@ -84,6 +90,7 @@ export const App: React.FC = () => {
                 <TodoList
                   filterTodos={filterTodos}
                   setModal={setModal}
+                  selectedTodo={selectedTodo}
                   setSelectedTodo={setSelectedTodo}
                 />
               )}
@@ -98,6 +105,7 @@ export const App: React.FC = () => {
           selectedTodo={selectedTodo}
           user={user}
           loadingModal={loadingModal}
+          setSelectedTodo={setSelectedTodo}
         />
       )}
     </>

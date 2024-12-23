@@ -1,15 +1,18 @@
 import React from 'react';
 import { Todo } from '../../types/Todo';
+import classNames from 'classnames';
 
 type Props = {
   todo: Todo;
   setModal: (value: boolean) => void;
+  selectedTodo: Todo | null;
   setSelectedTodo: (value: Todo) => void;
 };
 
 export const TodoItem: React.FC<Props> = ({
   todo,
   setModal,
+  selectedTodo,
   setSelectedTodo,
 }) => {
   const modalClick = () => {
@@ -28,8 +31,13 @@ export const TodoItem: React.FC<Props> = ({
         )}
       </td>
       <td className="is-vcentered is-expanded">
-        <p className={todo.completed ? 'has-text-success' : 'has-text-danger'}>
-          {todo.title}{' '}
+        <p
+          className={classNames({
+            'has-text-success': todo.completed,
+            'has-text-danger': !todo.completed,
+          })}
+        >
+          {todo.title}
         </p>
       </td>
       <td className="has-text-right is-vcentered">
@@ -40,7 +48,12 @@ export const TodoItem: React.FC<Props> = ({
           onClick={modalClick}
         >
           <span className="icon">
-            <i className="far fa-eye" />
+            <i
+              className={classNames('far', {
+                'fa-eye-slash': todo.id === selectedTodo?.id,
+                'fa-eye': todo.id !== selectedTodo?.id,
+              })}
+            />
           </span>
         </button>
       </td>
