@@ -11,10 +11,16 @@ import { getTodos, getUser } from './api';
 import { Todo } from './types/Todo';
 import { User } from './types/User';
 
+export enum FilterType {
+  All = 'all',
+  Active = 'active',
+  Completed = 'completed',
+}
 export const App: React.FC = () => {
+
   const [todos, setTodo] = useState<Todo[]>([]);
   const [filterTodos, setFilterTodos] = useState<Todo[]>([]);
-  const [filter, setFilter] = useState<string>('all');
+  const [filter, setFilter] = useState<string>(FilterType.All);
   const [searchFilter, setSearchFilter] = useState<string>('');
 
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
@@ -24,11 +30,6 @@ export const App: React.FC = () => {
 
   const [modal, setModal] = useState(false);
 
-  enum FilterType {
-    All = 'all',
-    Active = 'active',
-    Completed = 'completed',
-  }
 
   useEffect(() => {
     if (selectedTodo?.userId) {
@@ -51,10 +52,15 @@ export const App: React.FC = () => {
     setLoading(true);
     let updatedTodos = [...todos];
 
-    if (filter === FilterType.Active) {
-      updatedTodos = updatedTodos.filter(event => !event.completed);
-    } else if (filter === FilterType.Completed) {
-      updatedTodos = updatedTodos.filter(event => event.completed);
+    switch (filter) {
+      case FilterType.Active:
+        updatedTodos = updatedTodos.filter(todo => !todo.completed);
+        break;
+      case FilterType.Completed:
+        updatedTodos = updatedTodos.filter(todo => todo.completed);
+        break;
+      default:
+        break;
     }
 
     if (searchFilter) {

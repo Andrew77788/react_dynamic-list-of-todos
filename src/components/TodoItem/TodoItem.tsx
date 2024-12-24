@@ -20,11 +20,13 @@ export const TodoItem: React.FC<Props> = ({
     setSelectedTodo(todo);
   };
 
+  const{id, title, completed} = todo;
+
   return (
     <tr data-cy="todo" className="">
-      <td className="is-vcentered">{todo.id}</td>
+      <td className="is-vcentered">{id}</td>
       <td className="is-vcentered">
-        {todo.completed && (
+        {completed && (
           <span className="icon" data-cy="iconCompleted">
             <i className="fas fa-check" />
           </span>
@@ -33,11 +35,11 @@ export const TodoItem: React.FC<Props> = ({
       <td className="is-vcentered is-expanded">
         <p
           className={classNames({
-            'has-text-success': todo.completed,
-            'has-text-danger': !todo.completed,
+            'has-text-success': completed,
+            'has-text-danger': !completed,
           })}
         >
-          {todo.title}
+          {title}
         </p>
       </td>
       <td className="has-text-right is-vcentered">
@@ -50,8 +52,8 @@ export const TodoItem: React.FC<Props> = ({
           <span className="icon">
             <i
               className={classNames('far', {
-                'fa-eye-slash': todo.id === selectedTodo?.id,
-                'fa-eye': todo.id !== selectedTodo?.id,
+                'fa-eye-slash': id === selectedTodo?.id,
+                'fa-eye': id !== selectedTodo?.id,
               })}
             />
           </span>
