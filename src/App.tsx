@@ -86,14 +86,12 @@ export const App: React.FC = () => {
 
             <div className="block">
               {loading && <Loader />}
-              {!loading && (
-                <TodoList
-                  filterTodos={filterTodos}
-                  setModal={setModal}
-                  selectedTodo={selectedTodo}
-                  setSelectedTodo={setSelectedTodo}
-                />
-              )}
+              <TodoList
+                filterTodos={filterTodos}
+                setModal={setModal}
+                selectedTodo={selectedTodo}
+                setSelectedTodo={setSelectedTodo}
+              />
             </div>
           </div>
         </div>
